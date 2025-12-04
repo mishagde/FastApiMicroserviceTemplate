@@ -19,15 +19,13 @@ before_script:
 build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+  rules:
+    - when: always
   script:
     - echo "Packing template using .nuspec"
-    # Вычисление версии из имени ветки release/x.y.z
     - TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
     - echo "Version detected: $TEMPLATE_VERSION"
-
-    # Пакуем .nuspec → .nupkg
     - nuget pack template.nuspec -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
-
   artifacts:
     paths:
       - ./nupkg/*.nupkg
@@ -36,14 +34,9 @@ build:
 publish:
   stage: publish
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.*$/'
   script:
-    - echo "Available .nupkg files:"
     - ls -la ./nupkg
+    - dotnet nuget push ./nupkg/*.nupkg --source $NUGET_SERVER --api-key $CI_JOB_TOKEN
 
-    # Публикуем в GitLab NuGet Registry
-    - dotnet nuget push ./nupkg/*.nupkg \
-      --source "$NUGET_SERVER" \
-      --api-key "$CI_JOB_TOKEN"
-
-  only:
-    - /^release\/.*$/
