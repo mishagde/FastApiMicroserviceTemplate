@@ -1,0 +1,61 @@
+﻿**/.classpath
+**/.dockerignore
+**/.env
+**/.git
+**/.gitignore
+**/.idea
+**/.project
+**/.settings
+**/*.md
+**/*.user
+**/*.psess
+**/*.vsp
+**/*.vspscc
+**/*.suo
+**/*.cache
+**/*.log
+**/*.*~
+
+
+# Build folders
+bin/
+obj/
+out/
+artifacts/
+
+
+# User-specific
+.vscode/
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# Logs
+logs/
+*.log
+log.txt
+
+
+# EF Core Migrations snapshots
+**/Migrations/_*.cs
+**/Migrations/*Designer.cs
+
+
+# Docker
+Dockerfile*
+docker-compose*
+
+
+# Test output
+TestResults/
+coverage-report/
+.nyc_output/
+
+
+# Publish output
+/app/publish/
+appsettings.Development.json

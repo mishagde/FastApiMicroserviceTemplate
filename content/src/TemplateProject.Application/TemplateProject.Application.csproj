@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>TARGET_FRAMEWORK_PLACEHOLDER</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Mapster -->
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="MapsterMapper" Version="1.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TemplateProject.Domain\TemplateProject.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

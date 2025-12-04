@@ -1,0 +1,65 @@
+﻿# Build results
+bin/
+obj/
+out/
+artifacts/
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# VS / VSCode
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+log.txt
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# EF Core Migrations temporary files
+**/Migrations/*_Snapshot.cs
+**/Migrations/*.Designer.cs
+
+# Certificates
+*.pfx
+*.p12
+
+# Test outputs
+TestResults/
+coverage/
+coverage-report/
+.nyc_output/
+
+# Docker
+docker/*.yaml
+docker/*.yml
+docker/*.json
+docker-compose.override.yml
+
+# OpenTelemetry (optional)
+otel/
+*.otel.json
+
+# MassTransit temp queues (if exported)
+*.bkp
+*.queue
+*.exchange
+
+# Publish outputs
+publish/
+appsettings.Production.json

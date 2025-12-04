@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>TARGET_FRAMEWORK_PLACEHOLDER</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- FastEndpoints -->
+    <PackageReference Include="FastEndpoints" Version="5.32.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.32.0" />
+
+    <!-- Serilog + OpenSearch -->
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.OpenSearch" Version="5.0.0" />
+
+    <!-- JWT -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+
+    <!-- MassTransit + RabbitMQ -->
+    <PackageReference Include="MassTransit" Version="8.1.0" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
+
+    <!-- Redis -->
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
+
+    <!-- Mapster -->
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="MapsterMapper" Version="1.5.1" />
+
+    <!-- EF Core Design Tools -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <!-- OpenTelemetry (conditionally included) -->
+    <PackageReference Condition="'$(UseOpenTelemetry)' == 'true'" Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageReference Condition="'$(UseOpenTelemetry)' == 'true'" Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageReference Condition="'$(UseOpenTelemetry)' == 'true'" Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TemplateProject.Application\TemplateProject.Application.csproj" />
+    <ProjectReference Include="..\TemplateProject.Infrastructure\TemplateProject.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
