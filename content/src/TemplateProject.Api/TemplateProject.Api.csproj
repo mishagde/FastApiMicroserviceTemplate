@@ -13,7 +13,8 @@
 
     <!-- Serilog + OpenSearch -->
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="Serilog.Sinks.OpenSearch" Version="5.0.0" />
+    <!-- Pin to 1.3.0 for broader compatibility with locked-down feeds -->
+    <PackageReference Include="Serilog.Sinks.OpenSearch" Version="1.3.0" />
 
     <!-- JWT -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
@@ -27,7 +28,6 @@
 
     <!-- Mapster -->
     <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="MapsterMapper" Version="1.5.1" />
 
     <!-- EF Core Design Tools -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">

@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace TemplateProject.Api.Extensions;
@@ -12,7 +11,7 @@ public static class MapsterExtensions
         config.Scan(typeof(Program).Assembly);
 
         services.AddSingleton(config);
-        services.AddScoped<MapsterMapper.IMapper, MapsterMapper.ServiceMapper>();
+        // No DI mapper; use Mapster static Adapt<T> API instead.
 
         return services;
     }

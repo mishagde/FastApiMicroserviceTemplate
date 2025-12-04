@@ -1,19 +1,17 @@
 ﻿using FastEndpoints;
+using Mapster;
 using TemplateProject.Api.Endpoints.Orders.DTOs;
 using TemplateProject.Application.Interfaces;
-using IMapper = MapsterMapper.IMapper;
 
 namespace TemplateProject.Api.Endpoints.Orders;
 
 public class CreateOrderEndpoint : Endpoint<CreateOrderRequest, CreateOrderResponse>
 {
     private readonly IOrderService _service;
-    private readonly IMapper _mapper;
 
-    public CreateOrderEndpoint(IOrderService service, IMapper mapper)
+    public CreateOrderEndpoint(IOrderService service)
     {
         _service = service;
-        _mapper = mapper;
     }
 
     public override void Configure()
@@ -31,7 +29,7 @@ public class CreateOrderEndpoint : Endpoint<CreateOrderRequest, CreateOrderRespo
     {
         var order = await _service.CreateOrderAsync(req.Customer, req.Amount, ct);
 
-        var response = _mapper.Map<CreateOrderResponse>(order);
+        var response = order.Adapt<CreateOrderResponse>();
 
         await SendAsync(response, cancellation: ct);
     }

@@ -1,19 +1,17 @@
 ﻿using FastEndpoints;
+using Mapster;
 using TemplateProject.Api.Endpoints.Orders.DTOs;
 using TemplateProject.Application.Interfaces;
-using IMapper = MapsterMapper.IMapper;
 
 namespace TemplateProject.Api.Endpoints.Orders;
 
 public class GetOrderEndpoint : EndpointWithoutRequest<OrderDto>
 {
     private readonly IOrderService _service;
-    private readonly IMapper _mapper;
 
-    public GetOrderEndpoint(IOrderService service, IMapper mapper)
+    public GetOrderEndpoint(IOrderService service)
     {
         _service = service;
-        _mapper = mapper;
     }
 
     public override void Configure()
@@ -38,7 +36,7 @@ public class GetOrderEndpoint : EndpointWithoutRequest<OrderDto>
             return;
         }
 
-        var dto = _mapper.Map<OrderDto>(order);
+        var dto = order.Adapt<OrderDto>();
 
         await SendAsync(dto, cancellation: ct);
     }

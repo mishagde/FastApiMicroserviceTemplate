@@ -1,20 +1,18 @@
 ﻿using FastEndpoints;
+using Mapster;
 using TemplateProject.Api.Endpoints.Orders.DTOs;
 using TemplateProject.Application.Interfaces;
 using TemplateProject.Domain.Entities;
-using IMapper = MapsterMapper.IMapper;
 
 namespace TemplateProject.Api.Endpoints.Orders;
 
 public class UpdateOrderEndpoint : Endpoint<UpdateOrderRequest, OrderDto>
 {
     private readonly IOrderService _service;
-    private readonly IMapper _mapper;
 
-    public UpdateOrderEndpoint(IOrderService service, IMapper mapper)
+    public UpdateOrderEndpoint(IOrderService service)
     {
         _service = service;
-        _mapper = mapper;
     }
 
     public override void Configure()
@@ -48,7 +46,7 @@ public class UpdateOrderEndpoint : Endpoint<UpdateOrderRequest, OrderDto>
         // Но можно улучшить IOrderService, добавив метод UpdateOrderAsync.
         await _service.UpdateOrderAsync(order, ct);
 
-        var dto = _mapper.Map<OrderDto>(order);
+        var dto = order.Adapt<OrderDto>();
 
         await SendAsync(dto, cancellation: ct);
     }
