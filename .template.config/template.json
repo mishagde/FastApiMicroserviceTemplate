@@ -64,11 +64,8 @@
     },
 
     "projectName": {
-      "type": "parameter",
-      "datatype": "string",
-      "replaces": "TemplateProject",
-      "defaultValue": "MyMicroservice",
-      "description": "Название создаваемого микросервиса"
+      "type": "bind",
+      "binding": "name"
     }
   },
 
@@ -112,16 +109,6 @@
           "exclude": [ "TemplateProject.sln" ]
         },
         {
-          "rename": {
-            "TemplateProject.Api": "{{projectName}}.Api",
-            "TemplateProject.Application": "{{projectName}}.Application",
-            "TemplateProject.Domain": "{{projectName}}.Domain",
-            "TemplateProject.Infrastructure": "{{projectName}}.Infrastructure",
-            "TemplateProject.Tests": "{{projectName}}.Tests",
-            "TemplateProject.sln": "{{projectName}}.sln"
-          }
-        },
-        {
           "replacements": [
             {
               "original": "TemplateProject",
@@ -145,48 +132,5 @@
     }
   ],
 
-  "postActions": [
-    {
-      "condition": "(without-sln == false)",
-      "id": "create-sln",
-      "description": "Создать solution",
-      "actionId": "C34F7E9E-4D36-4A8C-A18F-9685ED7B87E5",
-      "args": {
-        "executable": "dotnet",
-        "args": [ "new", "sln", "-n", "{{projectName}}" ]
-      },
-      "continueOnError": true
-    },
-    {
-      "condition": "(without-sln == false)",
-      "id": "add-projects",
-      "description": "Добавить проекты в solution",
-      "actionId": "C34F7E9E-4D36-4A8C-A18F-9685ED7B87E5",
-      "args": {
-        "executable": "dotnet",
-        "args": [
-          "sln", "{{projectName}}.sln", "add",
-          "src/{{projectName}}.Api/{{projectName}}.Api.csproj",
-          "src/{{projectName}}.Application/{{projectName}}.Application.csproj",
-          "src/{{projectName}}.Infrastructure/{{projectName}}.Infrastructure.csproj",
-          "src/{{projectName}}.Domain/{{projectName}}.Domain.csproj",
-          "tests/{{projectName}}.Tests/{{projectName}}.Tests.csproj"
-        ]
-      },
-      "continueOnError": true
-    },
-    {
-      "id": "show-summary",
-      "description": "Показать инструкции",
-      "actionId": "2A7B98D8-5D06-4A5A-9C89-6C4E92A6FB11",
-      "manualInstructions": [
-        { "text": "🎉 Проект успешно создан!" },
-        { "text": "👉 Запуск инфраструктуры: docker-compose up -d" },
-        { "text": "👉 Применение миграций:" },
-        { "text": "   dotnet ef database update --project src/{{projectName}}.Infrastructure --startup-project src/{{projectName}}.Api" },
-        { "text": "👉 Запуск API:" },
-        { "text": "   dotnet run --project src/{{projectName}}.Api" }
-      ]
-    }
-  ]
+  "postActions": []
 }
