@@ -1,4 +1,8 @@
-﻿stages:
+﻿workflow:
+  rules:
+    - when: always
+
+stages:
   - build
   - publish
 
@@ -19,12 +23,13 @@ build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
   only:
-    - branches     # ← build видим на всех ветках
+    - branches
   script:
-    - echo "Packing template using .nuspec"
-    - TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
-    - echo "Version detected: $TEMPLATE_VERSION"
-    - nuget pack template.nuspec -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
+    - |
+      echo "Packing template using .nuspec"
+      TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
+      echo "Version detected: $TEMPLATE_VERSION"
+      nuget pack template.nuspec -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
   artifacts:
     paths:
       - ./nupkg/*.nupkg
@@ -34,7 +39,8 @@ publish:
   stage: publish
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
   only:
-    - /^release\/.*$/     # ← publish запускается только на release/*
+    - /^release\/.*$/
   script:
-    - ls -la ./nupkg
-    - dotnet nuget push ./nupkg/*.nupkg --source $NUGET_SERVER --api-key $CI_JOB_TOKEN
+    - |
+      ls -la ./nupkg
+      dotnet nuget push ./nupkg/*.nupkg --source $NUGET_SERVER --api-key $CI_JOB_TOKEN
