@@ -18,11 +18,8 @@ before_script:
 build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
-  rules:
-    - exists:
-        - template.nuspec
-    - when: always
-  allow_failure: false
+  only:
+    - branches     # ← build видим на всех ветках
   script:
     - echo "Packing template using .nuspec"
     - TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
@@ -36,8 +33,8 @@ build:
 publish:
   stage: publish
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
-  rules:
-    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.*$/'
+  only:
+    - /^release\/.*$/     # ← publish запускается только на release/*
   script:
     - ls -la ./nupkg
     - dotnet nuget push ./nupkg/*.nupkg --source $NUGET_SERVER --api-key $CI_JOB_TOKEN
