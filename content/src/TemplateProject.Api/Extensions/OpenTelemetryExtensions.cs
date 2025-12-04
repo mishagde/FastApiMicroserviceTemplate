@@ -1,5 +1,4 @@
-﻿#if (use-opentelemetry)
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -39,4 +38,3 @@ public static class OpenTelemetryExtensions
         return services;
     }
 }
-#endif

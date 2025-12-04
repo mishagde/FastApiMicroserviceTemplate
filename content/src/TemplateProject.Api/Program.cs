@@ -44,7 +44,7 @@ var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
 typeAdapterConfig.Scan(typeof(MapperConfig).Assembly);
 
 builder.Services.AddSingleton(typeAdapterConfig);
-builder.Services.AddScoped<IMapper, ServiceMapper>();
+builder.Services.AddScoped<MapsterMapper.IMapper, MapsterMapper.ServiceMapper>();
 
 // FastEndpoints
 builder.Services.AddFastEndpoints();
@@ -64,10 +64,8 @@ builder.Services.AddHealthChecks()
     .AddNpgSql(config.GetConnectionString("Postgres")!)
     .AddRedis(config.GetConnectionString("Redis")!);
 
-// OpenTelemetry (conditionally included by template)
-#if (use-opentelemetry)
+// OpenTelemetry
 builder.Services.AddOpenTelemetryTelemetry(config);
-#endif
 
 var app = builder.Build();
 

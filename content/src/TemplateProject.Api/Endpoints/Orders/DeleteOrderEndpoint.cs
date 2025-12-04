@@ -24,7 +24,7 @@ public class DeleteOrderEndpoint : EndpointWithoutRequest
         });
     }
 
-    public override async Task HandleAsync(CancellationToken ct)
+    public override async Task HandleAsync(System.Threading.CancellationToken ct)
     {
         var id = Route<int>("id");
 

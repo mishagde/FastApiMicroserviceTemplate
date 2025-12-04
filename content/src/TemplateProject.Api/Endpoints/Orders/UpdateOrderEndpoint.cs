@@ -1,8 +1,8 @@
 ﻿using FastEndpoints;
-using MapsterMapper;
 using TemplateProject.Api.Endpoints.Orders.DTOs;
 using TemplateProject.Application.Interfaces;
 using TemplateProject.Domain.Entities;
+using IMapper = MapsterMapper.IMapper;
 
 namespace TemplateProject.Api.Endpoints.Orders;
 

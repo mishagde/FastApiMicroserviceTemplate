@@ -12,7 +12,7 @@ public static class MapsterExtensions
         config.Scan(typeof(Program).Assembly);
 
         services.AddSingleton(config);
-        services.AddScoped<IMapper, ServiceMapper>();
+        services.AddScoped<MapsterMapper.IMapper, MapsterMapper.ServiceMapper>();
 
         return services;
     }

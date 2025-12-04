@@ -108,7 +108,14 @@
           "exclude": [
             "docker/otel-collector-config.yaml",
             "src/TemplateProject.Api/Telemetry/**",
-            "src/TemplateProject.Api/opentelemetry.json"
+            "src/TemplateProject.Api/opentelemetry.json",
+            "src/TemplateProject.Api/Extensions/OpenTelemetryExtensions.cs"
+          ]
+        },
+        {
+          "condition": "(use-opentelemetry == true)",
+          "exclude": [
+            "src/TemplateProject.Api/Extensions/OpenTelemetryExtensions.Noop.cs"
           ]
         },
         {
