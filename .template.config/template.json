@@ -1,0 +1,192 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "MishaGde",
+
+  "classifications": [
+    "FastAPI",
+    "Microservice",
+    "CleanArchitecture",
+    "FastEndpoints",
+    "MassTransit",
+    "RabbitMQ",
+    "EFCore",
+    "Redis",
+    "Serilog",
+    "OpenSearch",
+    "Docker",
+    "REST",
+    "MinimalAPI"
+  ],
+
+  "identity": "MishaGde.FastApiMicroserviceTemplate",
+  "groupIdentity": "MishaGde.FastApiMicroserviceTemplate.Group",
+
+  "name": "Fast API Microservice Template (FastEndpoints + MassTransit + Postgres + RabbitMQ)",
+  "shortName": "fast-api-microservice-template",
+  "description": "Готовый шаблон микросервиса: FastEndpoints, MassTransit, PostgreSQL, Redis, RabbitMQ, Serilog (OpenSearch), EF Core миграции, Dockerfile, docker-compose, Mapster, JWT.",
+  "precedence": 100,
+  "preferNameDirectory": true,
+
+  "sourceName": "TemplateProject",
+  "defaultName": "MyMicroservice",
+
+  "symbols": {
+    "net": {
+      "type": "parameter",
+      "datatype": "choice",
+      "description": "Выбор версии .NET",
+      "choices": [
+        { "choice": "8", "description": ".NET 8 (LTS)" },
+        { "choice": "9", "description": ".NET 9" }
+      ],
+      "defaultValue": "8"
+    },
+
+    "use-opentelemetry": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Включить поддержку OpenTelemetry?",
+      "defaultValue": false
+    },
+
+    "use-seq": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Добавить Seq в окружение?",
+      "defaultValue": false
+    },
+
+    "without-sln": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Не создавать solution (.sln)?",
+      "defaultValue": false
+    },
+
+    "projectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "TemplateProject",
+      "defaultValue": "MyMicroservice",
+      "description": "Название создаваемого микросервиса"
+    }
+  },
+
+  "primaryOutputs": [
+    { "path": "src/TemplateProject.Api/TemplateProject.Api.csproj" },
+    {
+      "condition": "(without-sln == false)",
+      "path": "TemplateProject.sln"
+    }
+  ],
+
+  "sources": [
+    {
+      "source": "./content",
+      "target": "./",
+
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".git/**"
+      ],
+
+      "modifiers": [
+        {
+          "condition": "(use-opentelemetry == false)",
+          "exclude": [
+            "docker/otel-collector-config.yaml",
+            "src/TemplateProject.Api/Telemetry/**",
+            "src/TemplateProject.Api/opentelemetry.json"
+          ]
+        },
+        {
+          "condition": "(use-seq == false)",
+          "exclude": [
+            "docker/seq/**",
+            "src/TemplateProject.Api/Logging/Seq/**"
+          ]
+        },
+        {
+          "condition": "(without-sln == true)",
+          "exclude": [ "TemplateProject.sln" ]
+        },
+        {
+          "rename": {
+            "TemplateProject.Api": "{{projectName}}.Api",
+            "TemplateProject.Application": "{{projectName}}.Application",
+            "TemplateProject.Domain": "{{projectName}}.Domain",
+            "TemplateProject.Infrastructure": "{{projectName}}.Infrastructure",
+            "TemplateProject.Tests": "{{projectName}}.Tests",
+            "TemplateProject.sln": "{{projectName}}.sln"
+          }
+        },
+        {
+          "replacements": [
+            {
+              "original": "TemplateProject",
+              "replacement": "{{projectName}}"
+            }
+          ]
+        },
+        {
+          "condition": "(net == '8')",
+          "replacements": [
+            { "original": "TARGET_FRAMEWORK_PLACEHOLDER", "replacement": "net8.0" }
+          ]
+        },
+        {
+          "condition": "(net == '9')",
+          "replacements": [
+            { "original": "TARGET_FRAMEWORK_PLACEHOLDER", "replacement": "net9.0" }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "postActions": [
+    {
+      "condition": "(without-sln == false)",
+      "id": "create-sln",
+      "description": "Создать solution",
+      "actionId": "C34F7E9E-4D36-4A8C-A18F-9685ED7B87E5",
+      "args": {
+        "executable": "dotnet",
+        "args": [ "new", "sln", "-n", "{{projectName}}" ]
+      },
+      "continueOnError": true
+    },
+    {
+      "condition": "(without-sln == false)",
+      "id": "add-projects",
+      "description": "Добавить проекты в solution",
+      "actionId": "C34F7E9E-4D36-4A8C-A18F-9685ED7B87E5",
+      "args": {
+        "executable": "dotnet",
+        "args": [
+          "sln", "{{projectName}}.sln", "add",
+          "src/{{projectName}}.Api/{{projectName}}.Api.csproj",
+          "src/{{projectName}}.Application/{{projectName}}.Application.csproj",
+          "src/{{projectName}}.Infrastructure/{{projectName}}.Infrastructure.csproj",
+          "src/{{projectName}}.Domain/{{projectName}}.Domain.csproj",
+          "tests/{{projectName}}.Tests/{{projectName}}.Tests.csproj"
+        ]
+      },
+      "continueOnError": true
+    },
+    {
+      "id": "show-summary",
+      "description": "Показать инструкции",
+      "actionId": "2A7B98D8-5D06-4A5A-9C89-6C4E92A6FB11",
+      "manualInstructions": [
+        { "text": "🎉 Проект успешно создан!" },
+        { "text": "👉 Запуск инфраструктуры: docker-compose up -d" },
+        { "text": "👉 Применение миграций:" },
+        { "text": "   dotnet ef database update --project src/{{projectName}}.Infrastructure --startup-project src/{{projectName}}.Api" },
+        { "text": "👉 Запуск API:" },
+        { "text": "   dotnet run --project src/{{projectName}}.Api" }
+      ]
+    }
+  ]
+}

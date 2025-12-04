@@ -1,21 +1,22 @@
 # ===============================================
 # 1. Build stage
 # ===============================================
+# Build context must be repository root: docker build -f src/{{projectName}}.Api/Dockerfile .
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy solution + projects
-COPY ../../TemplateProject.sln ./
-COPY ../../src/TemplateProject.Api/TemplateProject.Api.csproj ./src/TemplateProject.Api/
-COPY ../../src/TemplateProject.Application/TemplateProject.Application.csproj ./src/TemplateProject.Application/
-COPY ../../src/TemplateProject.Infrastructure/TemplateProject.Infrastructure.csproj ./src/TemplateProject.Infrastructure/
-COPY ../../src/TemplateProject.Domain/TemplateProject.Domain.csproj ./src/TemplateProject.Domain/
+COPY TemplateProject.sln ./
+COPY src/TemplateProject.Api/TemplateProject.Api.csproj ./src/TemplateProject.Api/
+COPY src/TemplateProject.Application/TemplateProject.Application.csproj ./src/TemplateProject.Application/
+COPY src/TemplateProject.Infrastructure/TemplateProject.Infrastructure.csproj ./src/TemplateProject.Infrastructure/
+COPY src/TemplateProject.Domain/TemplateProject.Domain.csproj ./src/TemplateProject.Domain/
 
 # Restore dependencies
 RUN dotnet restore TemplateProject.sln
 
 # Copy the rest of the source code
-COPY ../../src ./src
+COPY src ./src
 
 # Build (no restore needed)
 RUN dotnet build src/TemplateProject.Api/TemplateProject.Api.csproj -c Release -o /app/build
