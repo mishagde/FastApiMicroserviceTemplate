@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MassTransit;
-using MyService.Application.Interfaces;
-using MyService.Domain.Entities;
-using MyService.Infrastructure.Messaging.Contracts;
+using TemplateProject.Application.Interfaces;
+using TemplateProject.Domain.Entities;
+using TemplateProject.Contracts.Messaging;
 
 namespace TemplateProject.Application.Services;
 
@@ -40,6 +40,11 @@ public class OrderService : IOrderService
     public Task<IReadOnlyList<Order>> GetOrdersByCustomerAsync(string customer, CancellationToken ct = default)
     {
         return _repo.GetByCustomerAsync(customer, ct);
+    }
+
+    public async Task UpdateOrderAsync(Order order, CancellationToken ct = default)
+    {
+        await _repo.UpdateAsync(order, ct);
     }
 
     public async Task DeleteOrderAsync(Order order, CancellationToken ct = default)

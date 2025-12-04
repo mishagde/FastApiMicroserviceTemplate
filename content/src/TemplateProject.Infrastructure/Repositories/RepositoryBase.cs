@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyService.Application.Interfaces;
-using MyService.Domain.Common;
-using MyService.Infrastructure.Data;
+using TemplateProject.Application.Interfaces;
+using TemplateProject.Domain.Common;
+using TemplateProject.Infrastructure.Data;
 
 namespace TemplateProject.Infrastructure.Repositories;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using MyService.Domain.Entities;
+using TemplateProject.Domain.Entities;
 
 namespace TemplateProject.Application.Interfaces;
 

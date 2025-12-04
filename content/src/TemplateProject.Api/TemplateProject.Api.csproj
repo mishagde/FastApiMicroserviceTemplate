@@ -34,6 +34,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 
+    <!-- HealthCheck -->
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0" />
+
     <!-- OpenTelemetry (conditionally included) -->
     <PackageReference Condition="'$(UseOpenTelemetry)' == 'true'" Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
     <PackageReference Condition="'$(UseOpenTelemetry)' == 'true'" Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
@@ -43,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TemplateProject.Application\TemplateProject.Application.csproj" />
     <ProjectReference Include="..\TemplateProject.Infrastructure\TemplateProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\TemplateProject.Contracts\TemplateProject.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

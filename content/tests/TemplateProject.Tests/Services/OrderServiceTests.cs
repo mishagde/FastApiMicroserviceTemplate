@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NSubstitute;
 using MassTransit;
-using MyService.Application.Interfaces;
-using MyService.Application.Services;
-using MyService.Domain.Entities;
-using MyService.Infrastructure.Messaging.Contracts;
+using TemplateProject.Application.Interfaces;
+using TemplateProject.Application.Services;
+using TemplateProject.Domain.Entities;
+using TemplateProject.Contracts.Messaging;
 using Xunit;
 
 namespace TemplateProject.Tests.Services;

@@ -8,10 +8,13 @@
   <ItemGroup>
     <!-- Mapster -->
     <PackageReference Include="Mapster" Version="7.3.0" />
+    <!-- MassTransit abstractions used by OrderService (IPublishEndpoint) -->
+    <PackageReference Include="MassTransit" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TemplateProject.Domain\TemplateProject.Domain.csproj" />
+    <ProjectReference Include="..\TemplateProject.Contracts\TemplateProject.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

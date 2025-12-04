@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateProject.Domain", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateProject.Tests", "tests\TemplateProject.Tests\TemplateProject.Tests.csproj", "{D2E3F4A5-B6C7-48D9-8EA0-223344556677}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateProject.Contracts", "src\TemplateProject.Contracts\TemplateProject.Contracts.csproj", "{E3F4A5B6-C7D8-49EA-9B01-334455667788}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

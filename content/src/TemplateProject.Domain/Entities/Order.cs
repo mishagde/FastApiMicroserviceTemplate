@@ -1,5 +1,5 @@
 ﻿using System;
-using MyService.Domain.Common;
+using TemplateProject.Domain.Common;
 
 namespace TemplateProject.Domain.Entities;
 
