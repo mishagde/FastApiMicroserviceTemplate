@@ -4,7 +4,6 @@
 
 variables:
   DOTNET_VERSION: "8.0"
-  # GitLab NuGet feed for *this project*
   NUGET_SERVER: "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/packages/nuget"
 
 cache:
@@ -20,7 +19,10 @@ build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
   rules:
+    - exists:
+        - template.nuspec
     - when: always
+  allow_failure: false
   script:
     - echo "Packing template using .nuspec"
     - TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
@@ -39,4 +41,3 @@ publish:
   script:
     - ls -la ./nupkg
     - dotnet nuget push ./nupkg/*.nupkg --source $NUGET_SERVER --api-key $CI_JOB_TOKEN
-
