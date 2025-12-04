@@ -2,13 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MishaGde.FastApiMicroserviceTemplate</id>
-    <version>1.0.0</version>
-    <authors>MishaGde</authors>
-    <owners>MishaGde</owners>
+    <version>$version$</version>
+    <authors>mishagde</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <title>Fast API Microservice Template (FastEndpoints + MassTransit + Postgres + RabbitMQ)</title>
     <description>Готовый шаблон микросервиса: FastEndpoints, MassTransit, PostgreSQL, Redis, RabbitMQ, Serilog (OpenSearch), EF Core миграции, Dockerfile, docker-compose, Mapster, JWT.</description>
-    <projectUrl>https://github.com/your/repo</projectUrl>
+    <projectUrl>https://github.com/mishagde/FastApiMicroserviceTemplate</projectUrl>
     <tags>dotnet-new template FastEndpoints MassTransit RabbitMQ EFCore Redis Serilog OpenSearch Docker Microservice MinimalAPI</tags>
     <packageTypes>
       <packageType name="Template" />
