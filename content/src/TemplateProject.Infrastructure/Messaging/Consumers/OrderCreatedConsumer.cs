@@ -1,6 +1,7 @@
-﻿using MassTransit;
+﻿using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.Extensions.Logging;
-using TemplateProject.Infrastructure.Messaging.Contracts;
+using MyService.Infrastructure.Messaging.Contracts;
 
 namespace TemplateProject.Infrastructure.Messaging.Consumers;
 

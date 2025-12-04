@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TemplateProject.Application.Interfaces;
-using TemplateProject.Domain.Entities;
-using TemplateProject.Infrastructure.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using MyService.Application.Interfaces;
+using MyService.Domain.Entities;
+using MyService.Infrastructure.Data;
 
 namespace TemplateProject.Infrastructure.Repositories;
 

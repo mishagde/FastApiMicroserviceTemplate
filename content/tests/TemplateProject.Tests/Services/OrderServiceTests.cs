@@ -1,10 +1,14 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentAssertions;
 using NSubstitute;
 using MassTransit;
-using TemplateProject.Application.Interfaces;
-using TemplateProject.Application.Services;
-using TemplateProject.Domain.Entities;
-using TemplateProject.Infrastructure.Messaging.Contracts;
+using MyService.Application.Interfaces;
+using MyService.Application.Services;
+using MyService.Domain.Entities;
+using MyService.Infrastructure.Messaging.Contracts;
+using Xunit;
 
 namespace TemplateProject.Tests.Services;
 

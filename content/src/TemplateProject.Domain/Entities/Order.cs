@@ -1,4 +1,5 @@
-﻿using TemplateProject.Domain.Common;
+﻿using System;
+using MyService.Domain.Common;
 
 namespace TemplateProject.Domain.Entities;
 

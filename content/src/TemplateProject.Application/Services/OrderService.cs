@@ -1,7 +1,10 @@
-﻿using MassTransit;
-using TemplateProject.Application.Interfaces;
-using TemplateProject.Domain.Entities;
-using TemplateProject.Infrastructure.Messaging.Contracts;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using MassTransit;
+using MyService.Application.Interfaces;
+using MyService.Domain.Entities;
+using MyService.Infrastructure.Messaging.Contracts;
 
 namespace TemplateProject.Application.Services;
 

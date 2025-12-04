@@ -1,4 +1,7 @@
-﻿using TemplateProject.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using MyService.Domain.Entities;
 
 namespace TemplateProject.Application.Interfaces;
 
