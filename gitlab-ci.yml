@@ -1,0 +1,49 @@
+﻿stages:
+  - build
+  - publish
+
+variables:
+  DOTNET_VERSION: "8.0"
+  # GitLab NuGet feed for *this project*
+  NUGET_SERVER: "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/packages/nuget"
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .nuget/packages
+
+before_script:
+  - echo "Using .NET SDK version $DOTNET_VERSION"
+  - export PATH="$PATH:$HOME/.dotnet/tools"
+
+build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+  script:
+    - echo "Packing template using .nuspec"
+    # Вычисление версии из имени ветки release/x.y.z
+    - TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
+    - echo "Version detected: $TEMPLATE_VERSION"
+
+    # Пакуем .nuspec → .nupkg
+    - nuget pack template.nuspec -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
+
+  artifacts:
+    paths:
+      - ./nupkg/*.nupkg
+    expire_in: 1 week
+
+publish:
+  stage: publish
+  image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+  script:
+    - echo "Available .nupkg files:"
+    - ls -la ./nupkg
+
+    # Публикуем в GitLab NuGet Registry
+    - dotnet nuget push ./nupkg/*.nupkg \
+      --source "$NUGET_SERVER" \
+      --api-key "$CI_JOB_TOKEN"
+
+  only:
+    - /^release\/.*$/
