@@ -6,11 +6,6 @@ variables:
   DOTNET_VERSION: "8.0"
   NUGET_SERVER: "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/packages/nuget"
 
-cache:
-  key: "$CI_COMMIT_REF_SLUG"
-  paths:
-    - .nuget/packages
-
 before_script:
   - echo "Using .NET SDK version $DOTNET_VERSION"
   - export PATH="$PATH:$HOME/.dotnet/tools"
@@ -20,10 +15,27 @@ build:
   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
   script:
     - |
-      echo "Packing template using .nuspec"
+      echo "Installing mono..."
+      apt-get update -y
+      apt-get install -y --no-install-recommends mono-complete wget
+
+      echo "Downloading nuget.exe..."
+      wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O nuget.exe
+
+      echo "Searching for .nuspec file..."
+      NUSPEC_FILE=$(find . -maxdepth 4 -name "*.nuspec" | head -1)
+
+      if [ -z "$NUSPEC_FILE" ]; then
+        echo "❌ ERROR: No .nuspec file found!"
+        exit 1
+      fi
+
+      echo "Found nuspec: $NUSPEC_FILE"
+
       TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
       echo "Version detected: $TEMPLATE_VERSION"
-      nuget pack template.nuspec -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
+
+      mono nuget.exe pack "$NUSPEC_FILE" -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
   artifacts:
     paths:
       - ./nupkg/*.nupkg
