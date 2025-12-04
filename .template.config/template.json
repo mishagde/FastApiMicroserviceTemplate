@@ -43,9 +43,22 @@
     },
 
     "tfm": {
-      "type": "computed",
-      "value": "(net == '9') ? 'net9.0' : 'net8.0'",
-      "replaces": "TARGET_FRAMEWORK_PLACEHOLDER"
+      "type": "generated",
+      "generator": "switch",
+      "replaces": "TARGET_FRAMEWORK_PLACEHOLDER",
+      "parameters": {
+        "evaluator": "C++",
+        "datatype": "string",
+        "cases": [
+          {
+            "condition": "(net == '9')",
+            "value": "net9.0"
+          },
+          {
+            "value": "net8.0"
+          }
+        ]
+      }
     },
 
     "use-opentelemetry": {
@@ -67,11 +80,6 @@
       "datatype": "bool",
       "description": "Не создавать solution (.sln)?",
       "defaultValue": false
-    },
-
-    "projectName": {
-      "type": "bind",
-      "binding": "name"
     }
   },
 
@@ -113,22 +121,6 @@
         {
           "condition": "(without-sln == true)",
           "exclude": [ "TemplateProject.sln" ]
-        },
-        {
-          "replacements": [
-            {
-              "original": "TemplateProject",
-              "replacement": "{{projectName}}"
-            }
-          ]
-        },
-        {
-          "replacements": [
-            {
-              "original": "TARGET_FRAMEWORK_PLACEHOLDER",
-              "replacement": "{{tfm}}"
-            }
-          ]
         }
       ]
     }
