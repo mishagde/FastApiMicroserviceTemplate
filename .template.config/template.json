@@ -42,6 +42,12 @@
       "defaultValue": "8"
     },
 
+    "tfm": {
+      "type": "computed",
+      "value": "(net == '9') ? 'net9.0' : 'net8.0'",
+      "replaces": "TARGET_FRAMEWORK_PLACEHOLDER"
+    },
+
     "use-opentelemetry": {
       "type": "parameter",
       "datatype": "bool",
@@ -117,15 +123,11 @@
           ]
         },
         {
-          "condition": "(net == '8')",
           "replacements": [
-            { "original": "TARGET_FRAMEWORK_PLACEHOLDER", "replacement": "net8.0" }
-          ]
-        },
-        {
-          "condition": "(net == '9')",
-          "replacements": [
-            { "original": "TARGET_FRAMEWORK_PLACEHOLDER", "replacement": "net9.0" }
+            {
+              "original": "TARGET_FRAMEWORK_PLACEHOLDER",
+              "replacement": "{{tfm}}"
+            }
           ]
         }
       ]
