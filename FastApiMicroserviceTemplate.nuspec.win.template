@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MishaGde.FastApiMicroserviceTemplate</id>
-        <version>$version$</version>
+        <version>1.0.2</version>
         <authors>mishagde</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <title>Fast API Microservice Template (FastEndpoints + MassTransit + Postgres + RabbitMQ)</title>
@@ -15,10 +15,10 @@
     </metadata>
     <files>
         <!-- .template.config остаётся в корне пакета -->
-        <file src=".template.config/**/*" target=".template.config" />
+        <file src=".template.config/**/*" target="" />
 
         <!-- ВСЕ прочие файлы должны лежать внутри папки content в пакете -->
-        <file src="content/**/*" target="content" exclude="content/.template.config/**;content/**/bin/**;content/**/obj/**" />
+        <file src="content/**/*" target="" exclude="content/.template.config/**;content/**/bin/**;content/**/obj/**" />
 
         <file src="README.md" target="" />
     </files>

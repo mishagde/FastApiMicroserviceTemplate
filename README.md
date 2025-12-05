@@ -20,3 +20,19 @@
 
 ```bash
 dotnet new fast-api-microservice-template -n BillingService
+```
+
+Как собрать локально под windows:
+1. Указать вручную версию в nuspec
+2. Заменить "content" на "" в target
+3. Заменить target=".template.config" на target=""
+4. Использовать команду (чтобы гитигноры не протерять):
+```bash
+nuget pack FastApiMicroserviceTemplate.nuspec -NoDefaultExcludes
+```
+
+Публикация в nuget:
+
+```bash
+nuget push MishaGde.FastApiMicroserviceTemplate.1.0.0.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey 
+```
