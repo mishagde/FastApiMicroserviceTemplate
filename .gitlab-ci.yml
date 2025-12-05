@@ -36,6 +36,7 @@ build:
       echo "Version detected: $TEMPLATE_VERSION"
 
       echo "Packing template..."
+      cd "$CI_PROJECT_DIR"
       mono nuget.exe pack "$NUSPEC_FILE" \
         -BasePath "$CI_PROJECT_DIR" \
         -OutputDirectory "$CI_PROJECT_DIR/nupkg" \
