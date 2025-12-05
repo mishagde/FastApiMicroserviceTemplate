@@ -22,6 +22,16 @@
 dotnet new fast-api-microservice-template -n BillingService
 ```
 
+# Как установить шаблон
+
+### NuGet
+
+Link: https://www.nuget.org/packages/MishaGde.FastApiMicroserviceTemplate/
+
+# Как публиковать
+
+## Windows локально + NuGet
+
 Как собрать локально под windows:
 1. Указать вручную версию в nuspec
 2. Заменить "content" на "" в target
@@ -36,3 +46,7 @@ nuget pack FastApiMicroserviceTemplate.nuspec -NoDefaultExcludes
 ```bash
 nuget push MishaGde.FastApiMicroserviceTemplate.1.0.0.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey 
 ```
+
+## GitLab
+
+Создать ветку вида `release/*.*.*` - автоматически возьмёт версию из ветки.
