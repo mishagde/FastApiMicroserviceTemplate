@@ -40,7 +40,8 @@ build:
       mono nuget.exe pack "$NUSPEC_FILE" \
         -BasePath "$CI_PROJECT_DIR" \
         -OutputDirectory "$CI_PROJECT_DIR/nupkg" \
-        -Properties version=$TEMPLATE_VERSION
+        -Properties version=$TEMPLATE_VERSION \
+        -NoDefaultExcludes
 
       echo "Package created:"
       ls -la "$CI_PROJECT_DIR/nupkg"
