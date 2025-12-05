@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MishaGde.FastApiMicroserviceTemplate</id>
@@ -15,7 +15,7 @@
     </metadata>
     <files>
         <file src="content/.template.config/**/*" target=".template.config" />
-        <file src="content/**/*" target="" />
+        <file src="content/**/*" exclude="content/.template.config/**" target="" />
         <file src="README.md" target="" />
     </files>
 </package>
