@@ -22,11 +22,11 @@ build:
       echo "Downloading nuget.exe..."
       wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O nuget.exe
 
-      echo "Searching for .nuspec file..."
-      NUSPEC_FILE=$(find . -maxdepth 4 -name "*.nuspec" | head -1)
+      echo "Searching for .nuspec file in project root..."
+      NUSPEC_FILE=$(find "$CI_PROJECT_DIR" -maxdepth 1 -name "*.nuspec" | head -1)
 
       if [ -z "$NUSPEC_FILE" ]; then
-        echo "❌ ERROR: No .nuspec file found!"
+        echo "❌ ERROR: No .nuspec file found in project root!"
         exit 1
       fi
 
@@ -35,11 +35,18 @@ build:
       TEMPLATE_VERSION=$(echo "$CI_COMMIT_REF_NAME" | sed 's/release\///')
       echo "Version detected: $TEMPLATE_VERSION"
 
-      mono nuget.exe pack "$NUSPEC_FILE" -Properties version=$TEMPLATE_VERSION -OutputDirectory ./nupkg
+      echo "Packing template..."
+      mono nuget.exe pack "$NUSPEC_FILE" \
+        -BasePath "$CI_PROJECT_DIR" \
+        -OutputDirectory "$CI_PROJECT_DIR/nupkg" \
+        -Properties version=$TEMPLATE_VERSION
+
+      echo "Package created:"
+      ls -la "$CI_PROJECT_DIR/nupkg"
   artifacts:
     paths:
-      - ./nupkg/*.nupkg
-    expire_in: 1 week
+      - nupkg/*.nupkg
+    expire_in: never
 
 publish:
   stage: publish
